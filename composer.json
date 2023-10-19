@@ -1,0 +1,14 @@
+{
+    "license": "proprietary",
+    "name": "mreff/app",
+    "description": "descripcion",
+    "autoload": {
+        "psr-4": {
+            "Busesuy\\Bsapp\\": "src/"
+        }
+    },
+    "require": {
+        "tecnickcom/tcpdf": "^6.6",
+        "phpmailer/phpmailer": "^6.8"
+    }
+}

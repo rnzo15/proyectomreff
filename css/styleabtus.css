@@ -1,0 +1,40 @@
+#introduccion img {
+    margin: 30px;
+    padding: 1%;
+    width: 100%;
+    max-width: 20vw;
+}
+
+#introduccion p {
+    padding: 30px;
+    margin-top: 50px;
+}
+
+.contenido {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#introduccion2 img {
+    padding: 1%;
+    width: 100%;
+    max-width: 20vw;
+    order: 2;
+}
+
+#introduccion2 p {
+    padding: 30px;
+    margin-top: 50px;
+    order: 1;
+}
+
+
+.contenido2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3%;
+}

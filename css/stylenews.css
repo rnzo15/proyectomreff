@@ -1,0 +1,28 @@
+.galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin:100px;
+}
+
+.fila {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.columna {
+    text-align: center;
+    margin: 10px;
+    max-width: 300px;
+}
+
+.columna img {
+    width: 30%;
+    height: auto; 
+    border-radius: 5px;
+}
+
+p {
+    margin: 5px 0;
+}

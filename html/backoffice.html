@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/stylemenu.css">
+    <link rel="stylesheet" href="../css/styleback.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackOffice</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html"><img src="../img/VERSION MINIMA 1.png" alt="Logo" class="logo-img"></a>
+            </div>
+            <div class="nav-icons">
+                <div class="account-icon">
+                    <a href="../html/decision.html"><i class="fa-solid fa-user"></i></a>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <ul class="menu-items" id="menuItems">
+                    <a href="../html/lineas.php">
+                        <li>Lineas</li>
+                    </a>
+                    <a href="../html/abtus.html">
+                        <li>Sobre Nosotros</li>
+                    </a>
+                    <a href="../html/mapa.html">
+                        <li>Mapa</li>
+                    </a>
+                    <a href="../html/news.html">
+                        <li>Noticias</li>
+                    </a>
+                    <a href="../html/tarifas.html">
+                        <li>Tarifas</li>
+                    </a>
+                    <a href="../html/contact.html">
+                        <li>Contacto</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="column"><i class="fa-solid fa-user"></i> ABM Usuarios
+                        <div class="column" onclick="showSearchUser()"><i class="fa-solid fa-magnifying-glass"></i> Buscar user</div>
+                        <div class="column" onclick="showAddUser()"><i class="fa-solid fa-user-plus"></i> Agregar user</div>
+                        <div class="column" onclick="showDelUser()"><i class="fa-solid fa-user-minus"></i> Eliminar user</div>
+                        <div class="column" onclick="showModUser()"><i class="fa-solid fa-user-gear"></i> Modificar user</div>
+                    </div>
+                    <div class="column"><i class="fa-solid fa-route"></i> ABM Lineas  <!-- Agregar la funcion onclick en las column, con el nombre correspondiente en JS -->
+                        <div class="column" onclick="showSearchLine()"><i class="fa-solid fa-magnifying-glass"></i> Buscar linea</div>
+                        <div class="column" onclick="showAddLine()"><i class="fa-solid fa-plus"></i> Agregar linea</div>
+                        <div class="column" onclick="showDelLine()"><i class="fa-solid fa-minus"></i> Borrar linea</div>
+                        <div class="column" onclick="showModLine()"><i class="fa-solid fa-gear"></i> Modificar linea</div>
+                    </div>
+                    <div class="column"><i class="fa-solid fa-bus-simple"></i> ABM Buses
+                        <div class="column" onclick="showSearchBus()"><i class="fa-solid fa-magnifying-glass"></i> Buscar bus</div>
+                    <div class="column" onclick="showAddBus()"><i class="fa-solid fa-plus"></i> Agregar bus</div>
+                    <div class="column" onclick="showDelBus()"><i class="fa-solid fa-minus"></i> Eliminar bus</div>
+                    <div class="column" onclick="showModBus()"><i class="fa-solid fa-gear"></i> Modificar bus</div>
+                    </div>
+                    <div class="column"><i class="fa-solid fa-location-dot"></i> ABM Paradas
+                        <div class="column" onclick="showSearchParada()"><i class="fa-solid fa-magnifying-glass"></i> Buscar Parada</div>
+                        <div class="column" onclick="showAddParada()"><i class="fa-solid fa-plus"></i> Agregar parada</div>
+                        <div class="column" onclick="showDelParada()"><i class="fa-solid fa-minus"></i> Eliminar parada</div>
+                        <div class="column" onclick="showModParada()"><i class="fa-solid fa-gear"></i> Modificar parada</div>
+                    </div>
+                    <div class="column"><i class="fa-solid fa-asterisk"></i> Otros
+                        <div class="column"><i class="fa-solid fa-location-dot"></i> Ver mapa</div>
+                        <div class="column"><i class="fa-solid fa-comment"></i> Chat</div>
+                        <div class="column"><i class="fa-solid fa-bell"></i> Reportes</div>
+                        <div class="column"><i class="fa-solid fa-calendar"></i> Eventos</div>
+                        <div class="column"><i class="fa-solid fa-file-export"></i> Subir archivo</div>
+                    <div class="column"><i class="fa-solid fa-envelope"></i> Quejas</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column"><i class="fa-solid fa-city"></i> ABM Ciudades
+                        <div class="column" onclick="showSearchCiudad()"><i class="fa-solid fa-magnifying-glass"></i> Buscar ciudad</div>
+                        <div class="column" onclick="showAddCiudad()"><i class="fa-solid fa-plus"></i> Agregar ciudad</div>
+                        <div class="column" onclick="showDelCiudad()"><i class="fa-solid fa-minus"></i> Eliminar ciudad</div>
+                        <div class="column" onclick="showModCiudad()"><i class="fa-solid fa-gear"></i> Modificar ciudad</div>
+                    </div>
+                    <div class="column"><i class="fa-solid fa-dollar-sign"></i> Tarifas
+                        <div class="column" onclick="showSearchTarifa()"><i class="fa-solid fa-magnifying-glass"></i> Buscar tarifa</div>
+                        <div class="column" onclick="showAddTarifa()"><i class="fa-solid fa-plus"></i> Agregar tarifa</div>
+                        <div class="column" onclick="showDelTarifa()"><i class="fa-solid fa-minus"></i> Borrar tarifa</div>
+                        <div class="column" onclick="showModTarifa()"><i class="fa-solid fa-gear"></i> Modificar tarifa</div>
+                    </div>
+                    <div class="column"><i class="fa-solid fa-clock"></i> ABM Horarios
+                        <div class="column"><i class="fa-solid fa-magnifying-glass"></i> Buscar horario</div>
+                        <div class="column" onclick="showAddHorario()"><i class="fa-solid fa-plus"></i> Agregar horario</div>
+                        <div class="column" onclick="showDelHorario()"><i class="fa-solid fa-minus"></i> Borrar horario</div>
+                        <div class="column" onclick="showModHorario()"><i class="fa-solid fa-gear"></i> Modificar horario</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popupcont" id="searchu"> <!-- Este es el contenido que estara dentro del popup, en class siempre dejar el popupcont, cambiar el ID que es lo que se usa en JS -->
+        <div class="popup-content">
+            <!-- <form action="../php/usersearch.php" method="post"> -->
+                <h2>Buscar usuario</h2>
+                <input type="text" name="cedula" placeholder="Cedula usuario">
+                <input type="text" name="id" placeholder="ID usuario">
+                <input type="submit" value="Enviar">
+            </form>
+            <button onclick="closePopupSearch()">Cerrar</button>
+        </div>
+    </div>
+    <div class="popupcont" id="modus">
+            <div class="popup-content">
+           <!--     <form action="../php/usermod.php" method="post"> -->
+                    <h2>Modificar usuario</h2>
+                    <input type="text" name="cedula" placeholder="Cedula usuario">
+                    <input type="text" name="id" placeholder="ID usuario">
+                    <h1>AGREGAR MAS DATOS</h1>
+                    <input type="submit" value="Enviar">
+                </form>
+                <button onclick="closePopupMod()">Cerrar</button>
+            </div>
+    </div>
+
+    <div class="popupcont" id="delus">
+        <div class="popup-content">
+          <!-- <form action="../php/userdel.php" method="post">  CREAR-->
+                <h2>Eliminar usuario</h2>
+                <input type="text" name="id" placeholder="ID usuario">
+                <input type="submit" value="Enviar">
+            </form>
+            <button onclick="closePopupDel()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="addus">
+        <div class="popup-content">
+          <!--  <form action="../php/useradd.php" method="post"> CREAR -->
+                <h2>Agregar usuario</h2>
+                <input type="text" name="id" placeholder="ID usuario">
+                <h2>Agregar más Info</h2>
+                <input type="submit" value="Enviar">
+            </form>
+            <button onclick="closePopupAdd()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="searchline">
+        <div class="popup-content">
+             <!-- <form action="../php/searchline.php" method="post">  -->
+              <h2>Buscar Línea</h2>
+              <input type="text" name="idlinea" placeholder="ID Linea">
+              <input type="text" name="nameLinea" placeholder="Nombre de la Linea">
+              <input type="submit" value="Enviar">
+        </form>
+        <button onclick="closePopupSearchLine()">Cerrar</button>
+    </div>
+</div>
+
+<div class="popupcont" id="addLine">
+    <div class="popup-content">
+        <!-- <form action="../php/addLine" method="post"> -->
+            <h2>Añadir Línea</h2>
+            <input type="text" name="nameLinea" placeholder="Nombre Línea">
+            <input type="text" name="id" placeholder="ID Línea">
+            <input type="text" name="cityO" placeholder="Ciudad Orígen">
+            <input type="text" name="cityD" placeholder="Ciudad Destino">
+            <input type="submit" value="Agregar">
+        </form>
+        <button onclick="closePopupAddLine()">Cerrar</button>
+    </div>
+</div>
+
+<div class="popupcont" id="delLine">
+    <div class="popup-content">
+     <!--  <form action="../php/delLine" method="post"> -->
+        <h2>Eliminar Linea</h2>
+        <input type="text" name="id" placeholder="ID Línea">
+        <input type="submit" value="Eliminar">
+      </form>
+      <button onclick="closePopupDelLine()">Cerrar</button>
+     </div>
+</div>
+
+   <div class="popupcont" id="modLine">
+     <div class="popup-content">
+        <!-- <form action="../php/modLine" method="post"> -->
+          <h2>Modificar Linea</h2>
+          <input type="text" name="id" placeholder="ID Línea">
+          <input type="text" name="nameline" placeholder="Nombre Línea">
+          <input type="text" name="ciudadO" placeholder="Ciudad Origen">
+          <input type="text" name="ciudadD" placeholder="Ciudad Destino">
+          <input type="submit" value="Modificar">
+        </form>
+        <button onclick="closePopupModLine()">Cerrar</button>
+      </div>
+   </div>
+
+    <div class="popupcont" id="searchBus">
+        <div class="popup-content">
+           <!-- <form action="../php/searchBus" method="post"> -->
+                <h2>Buscar Bus</h2>
+                <input type="text" name="id" placeholder="ID Bus">
+                <input type="submit" value="Buscar">
+            </form>
+            <button onclick="closePopupSearchBus()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="addBus">
+        <div class="popup-content">
+            <!-- <form action="../php/addBus" method="post"> -->
+                <h2>Agregar Bus</h2>
+                <input type="text" name="id" placeholder="Añadir ID">
+                <input type="text" name="cap" placeholder="capacidad maxima">
+                <input type="text" name="num" placeholder="Numero de Identificación">
+                <input type="text" name="conductor" placeholder="Conductor ID">
+                <input type="submit" value="Añadir">
+            </form>
+            <button onclick="closePopupAddBus()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="delBus">
+        <div class="popup-content">
+            <!-- <form action="../php/delBus" method="post"> -->
+                <h2>Eliminar Bus</h2>
+                <input type="text" name="id" placeholder="ID Bus">
+                <input type="submit" value="Eliminar">
+            </form>
+            <button onclick="closePopupDelBus()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="modBus">
+        <div class="popup-content">
+            <!-- <form action="../php/modBus" method="post"> -->
+                <h2>Modificar Bus</h2>
+                <input type="text" name="id" placeholder="ID">
+                <input type="text" name="cap" placeholder="Capacidad maxima">
+                <input type="text" name="num" placeholder="Num Identificación">
+                <input type="text" name="conductor" placeholder="Conductor ID">
+                <input type="submit" value="Modificar">
+            </form>
+            <button onclick="closePopupModBus()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="searchParada">
+        <div class="popup-content">
+            <!-- <form action="../php/searchParada" method="post"> -->
+                <h2>Buscar Parada</h2>
+                <input type="text" name="id" placeholder="ID Parada">
+                <input type="submit" value="Buscar">
+            </form>
+            <button onclick="closePopupSearchParada()">Cerrar</button>
+        </div>
+    </div>
+      
+    <div class="popupcont" id="addParada">
+        <div class="popup-content">
+            <!-- <form action="../php/addParada" method="post"> -->
+                <h2>Agregar Parada</h2>
+                <input type="text" name="id" placeholder="ID Parada">
+                <input type="text" name="dir" placeholder="Dirección Parada">
+                <input type="text" name="idRuta0" placeholder="ID Ruta">
+                <input type="text" name="idCiudad" placeholder="ID Ciudad">
+                <input type="submit" value="Agregar">
+            </form>
+            <button onclick="closePopupAddParada()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="delParada">
+        <div class="popup-content">
+            <!-- <form action="../php/delParada" method="post"> -->
+                <h2>Borrar Parada</h2>
+                <input type="text" name="id" placeholder="ID Parada">
+                <input type="submit" value="Borrar">
+            </form>
+            <button onclick="closePopupDelParada()">Cerrar</button>
+        </div>
+    </div>
+    <div class="popupcont" id="modParada">
+        <div class="popup-content">
+            <!-- <form action="../php/addParada" method="post"> -->
+                <h2>Modificar Parada</h2>
+                <input type="text" name="id" placeholder="ID Parada">
+                <input type="text" name="dir" placeholder="Dirección Parada">
+                <input type="text" name="idRuta0" placeholder="ID Ruta">
+                <input type="text" name="idCiudad" placeholder="ID Ciudad">
+                <input type="submit" value="Agregar">
+            </form>
+            <button onclick="closePopupModParada()">Cerrar</button>
+        </div>
+    </div>
+    
+    <div class="popupcont" id="searchTarifa">
+        <div class="popup-content">
+            <!--<form action="../php/searchTarifa" method="post"> -->
+                <h2>Buscar Tarifa</h2>
+                <input type="text" name="id" placeholder="ID Tarifa">
+                <input type="submit" value="Buscar">
+            </form>
+            <button onclick="closePopupSearchTarifa()">Cerrar</button>
+        </div>
+    </div>
+ 
+    <div class="popupcont" id="addTarifa">
+        <div class="popup-content">
+            <!-- <form action="../php/addTarifa" method="post"> -->
+                <h2>Agregar Tarifa</h2>
+                <input type="text" name="id" placeholder="ID Tarifa">
+                <input type="text" name="nom" placeholder="Nombre Tarifa">
+                <input type="text" name="precio" placeholder="Precio Tarifa">
+                <input type="submit" value="Agregar">
+            </form>
+            <button onclick="closePopupAddTarifa()">Cerrar</button>
+        </div>
+    </div>
+   
+    <div class="popupcont" id="delTarifa">
+        <div class="popup-content">
+            <!-- <form action="../php/delTarifa" method="post"> -->
+                <h2>Eliminar Tarifa</h2>
+                <input type="text" name="id" placeholder="ID Tarifa">
+                <input type="submit" value="Eliminar">
+        </form>
+        <button onclick="closePopupDelTarifa()">Cerrar</button>
+    </div>
+    </div>
+
+    <div class="popupcont" id="modTarifa">
+        <div class="popup-content">
+            <!-- <form action="../php/modTarifa" method="post"> -->
+                <h2>Modificar Tarifa</h2>
+                <input type="text" name="id" placeholder="ID Tarifa">
+                <input type="text" name="nom" placeholder="Nombre Tarifa">
+                <input type="text" name="precio" placeholder="Precio Tarifa">
+                <input type="submit" value="Modificar">
+            </form>
+            <button onclick="closePopupModTarifa()">Cerrar</button>
+        </div>
+    </div>
+   
+    <div class="popupcont" id="searchCiudad">
+        <div class="popup-content">
+            <!-- <form action="../php/searchCiudad" method="post"> -->
+                <h2>Buscar Ciudad</h2>
+                <input type="text" name="id" placeholder="ID Ciudad">
+                <input type="submit" value="Buscar">
+            </form>
+            <button onclick="closePopupSearchCiudad()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="addCiudad">
+        <div class="popup-content">
+            <!-- <form action="../php/addCiudad" method="post">-->
+                <h2>Agregar Ciudad</h2>
+                <input type="text" name="id" placeholder="ID Ciudad">
+                <input type="text" name="nom" placeholder="Nombre Ciudad">
+                <input type="submit" value="Agregar">
+            </form>
+            <button onclick="closePopupAddCiudad()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="delCiudad">
+        <div class="popup-content">
+            <!-- <form action="../php/delCiudad" method="post"> -->
+                <h2>Eliminar Ciudad</h2>
+                <input type="text" name="id" placeholder="ID Ciudad">
+                <input type="submit" value="Eliminar">
+            </form>
+            <button onclick="closePopupDelCiudad()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="modCiudad">
+        <div class="popup-content">
+            <!-- <form action="../php/modCiudad" method="post"> -->
+                <h2>Modificar Ciudad</h2>
+                <input type="text" name="id" placeholder="ID Ciudad">
+                <input type="text" name="nom" placeholder="Nombre Ciudad">
+                <input type="submit" value="Modificar">
+            </form>
+            <button onclick="closePopupModCiudad()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="addHorario">
+        <div class="popup-content">
+            <!--<form action="../php/addHorario" method="post"> -->
+                <h2>Agregar Horario</h2>
+                <input type="text" name="id" placeholder="ID Horario">
+                <input type="time" name="horario" >
+                <input type="submit" value="Agregar">
+            </form>
+            <button onclick="closePopupAddHorario()">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="popupcont" id="delHorario">
+        <div class="popup-content">
+            <!-- <form action="../php/delHorario" method="post" --> 
+                <h2>Borrar Horario</h2>
+                <input type="text" name="id" placeholder="ID Horario">
+                <input type="submit" value="Borrar">
+            </form>
+            <button onclick="closePopupDelHorario()">Cerrar</button>
+        </div>
+    </div>
+    
+    <div class="popupcont" id="modHorario">
+        <div class="popup-content">
+            <!--<form action="../php/modHorario" method="post"> -->
+                <h2>Modificar Horario</h2>
+                <input type="text" name="id" placeholder="ID Horario">
+                <input type="time" name="horario" >
+                <input type="submit" value="Modificar">
+            </form>
+            <button onclick="closePopupModHorario()">Cerrar</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <img class="logo-left" src="../img/logo_6.png" alt="Logo Izquierdo">
+        <span class="center-text">Pagina creada por M.R.E.F.F Software</span>
+        <img class="logo-right" src="../img/VERSION MINIMA 1.png" alt="Logo Derecho">
+    </footer>
+    <script src="../js/script.js"></script>
+    <script src="../js/scriptback.js"></script>
+</body>
+
+</html>

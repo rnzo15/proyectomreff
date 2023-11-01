@@ -1,9 +1,6 @@
 <?php
 session_start();
-$servername = "localhost";
-$usernameDB = "root";
-$passwordDB = "6751";
-$database = "FBUSESUY";
+include '../src/libs/Conexion.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST["email"];

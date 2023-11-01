@@ -10,7 +10,7 @@ direccion varchar(255) NOT NULL,
 passwordu varchar(255) NOT NULL,
 cedula varchar(10) NOT NULL,
 telefono varchar(15) NOT NULL,
-admin boolean NOT NULL DEFAULT "0",
+rango int(3) DEFAULT "1",
 fechanac DATE NOT NULL
 );
 
@@ -356,5 +356,3 @@ VALUES
     (38, 0, 2, 5),
     (39, 0, 2, 3),
     (40, 0, 2, 5);
-    
-    SELECT * FROM CIUDAD;

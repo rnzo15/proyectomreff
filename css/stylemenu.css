@@ -16,7 +16,11 @@ body {
 a {
     color:white;
 }
-
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+}
 /* Navbar */
 .navbar {
     background-color: var(--primary-color);

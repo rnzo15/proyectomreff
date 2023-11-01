@@ -10,6 +10,7 @@ direccion varchar(255) NOT NULL,
 passwordu varchar(255) NOT NULL,
 cedula varchar(10) NOT NULL,
 telefono varchar(15) NOT NULL,
+admin boolean NOT NULL DEFAULT "0",
 fechanac DATE NOT NULL
 );
 
@@ -57,16 +58,15 @@ FOREIGN KEY (ID_CIUDAD) REFERENCES CIUDAD (ID_CIUDAD)
 );
 
 CREATE TABLE RESERVA(
-    ID_RESERVA INT NOT NULL AUTO_INCREMENT,
-    IDCLIENTE INT NOT NULL,
-    IDRUTA INT NOT NULL,
-    PRECIO INT NOT NULL, -- Agregado
-    FECHA_RESERVA DATETIME NOT NULL,
-    PRIMARY KEY (ID_RESERVA),
-    FOREIGN KEY (IDCLIENTE) REFERENCES USUARIOS (iduser),
-    FOREIGN KEY (IDRUTA) REFERENCES RUTA (ID_RUTA)
+ID_RESERVA INT NOT NULL AUTO_INCREMENT,
+IDCLIENTE INT NOT NULL,
+IDRUTA INT NOT NULL,
+PRECIO INT NOT NULL,
+FECHA_RESERVA DATETIME NOT NULL,
+PRIMARY KEY (ID_RESERVA),
+FOREIGN KEY (IDCLIENTE) REFERENCES USUARIOS (iduser),
+FOREIGN KEY (IDRUTA) REFERENCES RUTA (ID_RUTA)
 );
-
 
 CREATE TABLE ASIENTO(
 ID_ASIENTO INT NOT NULL PRIMARY KEY,
@@ -77,27 +77,141 @@ FOREIGN KEY (ID_OMNIBUS) REFERENCES OMNIBUS (ID_OMNIBUS),
 FOREIGN KEY (ID_RESERVA) REFERENCES RESERVA (ID_RESERVA)
 );
 
-CREATE TABLE INFORMES_DIARIOS (
-    ID_INFORME INT AUTO_INCREMENT,
-    FECHA DATE NOT NULL,
-    NUM_RESERVA INT NOT NULL,
-    TOTAL_INGRESOS INT NOT NULL,
-    
-    PRIMARY KEY (ID_INFORME),
-    FOREIGN KEY (NUM_RESERVA) REFERENCES RESERVA (ID_RESERVA)
-);
 
-CREATE TABLE Calificaciones (
-    ID_Calificacion INT AUTO_INCREMENT PRIMARY KEY,
-    ID_RESERVA INT NOT NULL,
-    ID_Pasajero INT NOT NULL,
-    Puntuacion INT NOT NULL,
-    Comentario VARCHAR(255),
-    PromedioCalificaciones DECIMAL(5, 2), 
-    UNIQUE KEY (ID_RESERVA, ID_Pasajero),
-    FOREIGN KEY (ID_RESERVA) REFERENCES RESERVA(ID_RESERVA),
-    FOREIGN KEY (ID_Pasajero) REFERENCES USUARIOS(iduser)
-);
+DELIMITER //
+CREATE PROCEDURE RegistrarUsuario(
+    IN username VARCHAR(50),
+    IN correoElectronico VARCHAR(100),
+    IN direccionu VARCHAR(255),
+    IN contrasena VARCHAR(255),
+    IN cedula_param VARCHAR(10),
+    IN numtel VARCHAR(15),
+    IN fechanac DATE
+)
+BEGIN
+    DECLARE cedula_count INT;
+    
+    -- Verificar si la cédula ya está registrada
+    SELECT COUNT(*) INTO cedula_count FROM USUARIOS WHERE cedula = cedula_param;
+    
+    IF cedula_count > 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'La cédula ya está registrada';
+    ELSE
+        -- Insertar el nuevo usuario
+        INSERT INTO USUARIOS (username, email, direccion, passwordu, cedula, telefono, fechanac)
+        VALUES (username, correoElectronico, direccionu, contrasena, cedula_param, numtel, fechanac);
+    END IF;
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE Login(
+    IN p_email VARCHAR(100),
+    IN p_contrasena VARCHAR(255),
+    OUT resultado INT
+)
+BEGIN
+    DECLARE usuarioEncontrado INT;
+    SET usuarioEncontrado = 0;
+    
+    SELECT COUNT(*) INTO usuarioEncontrado
+    FROM USUARIOS
+    WHERE email = p_email AND passwordu = p_contrasena;
+
+    IF usuarioEncontrado = 1 THEN
+        SET resultado = 1;
+    ELSE
+        SET resultado = 0;
+    END IF;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE AgregarCiudad(
+	IN nombre VARCHAR(255)
+)
+BEGIN
+INSERT INTO CIUDAD (NOMBRE_CIUDAD)
+VALUES (nombre);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AgregarRuta(
+	IN nomlinea VARCHAR(255),
+    IN id1 INT,
+    IN id2 INT
+)
+BEGIN
+INSERT INTO RUTA (NOM_RUTA, ID_CIUDAD_ORIGEN, ID_CIUDAD_DESTINO)
+VALUES (nomlinea, id1, id2);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AgregarConductor(
+	IN nombrechofer VARCHAR(255),
+    IN seriallicencia VARCHAR(100)
+)
+BEGIN
+INSERT INTO CONDUCTOR (NOMBRE_CONDUCTOR, SERIAL_LICENCIA)
+VALUES (nombrechofer, seriallicencia);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AgregarOmnibus(
+	IN numid INT,
+    IN capacidad INT,
+    IN idchof INT
+    )
+BEGIN 
+INSERT INTO OMNIBUS (NUMERO_IDENTIFICACION, CAPACIDAD_MAXIMA, CONDUCTOR_ID)
+VALUES (numid, capacidad, idchof);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE BuscarUsuario(IN param_busqueda VARCHAR(255))
+BEGIN
+    SET @param_busqueda_int = CAST(param_busqueda AS SIGNED);
+    SELECT * FROM USUARIOS
+    WHERE cedula = param_busqueda OR iduser = @param_busqueda_int;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE AgregarUsuario(
+    IN p_username VARCHAR(255),
+    IN p_email VARCHAR(255),
+    IN p_direccion VARCHAR(255),
+    IN p_password VARCHAR(255),
+    IN p_cedula VARCHAR(10),
+    IN p_telefono VARCHAR(15),
+    IN p_fechanac DATE
+)
+BEGIN
+    DECLARE existing_count INT;
+    SELECT COUNT(*) INTO existing_count FROM USUARIOS WHERE cedula = p_cedula OR email = p_email;
+    
+    IF existing_count > 0 THEN
+        SELECT 'Error: El usuario ya existe' AS mensaje;
+    ELSE
+        INSERT INTO USUARIOS (username, email, direccion, passwordu, cedula, telefono, fechanac)
+        VALUES (p_username, p_email, p_direccion, p_password, p_cedula, p_telefono, p_fechanac);
+        SELECT 'Usuario agregado con éxito' AS mensaje;
+    END IF;
+END;
+
+//
+
+DELIMITER ;
 
 
 
@@ -242,250 +356,5 @@ VALUES
     (38, 0, 2, 5),
     (39, 0, 2, 3),
     (40, 0, 2, 5);
-   
-
--- Definicion de vistas
-
-CREATE VIEW VistaReservasUsuario AS
-SELECT R.ID_RESERVA, R.PRECIO, R.FECHA_RESERVA, RT.NOM_RUTA, P.DIRECCION_PARADA, C.NOMBRE_CIUDAD
-FROM RESERVA R
-INNER JOIN RUTA RT ON R.IDRUTA = RT.ID_RUTA
-INNER JOIN PARADA P ON RT.ID_RUTA = P.ID_RUTA
-INNER JOIN CIUDAD C ON P.ID_CIUDAD = C.ID_CIUDAD;
-
-CREATE VIEW VistaConductoresOmnibuses AS
-SELECT C.NOMBRE_CONDUCTOR, C.SERIAL_LICENCIA, O.NUMERO_IDENTIFICACION, O.CAPACIDAD_MAXIMA
-FROM CONDUCTOR C
-INNER JOIN OMNIBUS O ON C.ID_CONDUCTOR = O.CONDUCTORID;
-
-CREATE VIEW VistaRutasDisponibles AS
-SELECT RT.NOM_RUTA, CIUDAD_ORIGEN.NOMBRE_CIUDAD AS ORIGEN, CIUDAD_DESTINO.NOMBRE_CIUDAD AS DESTINO
-FROM RUTA RT
-INNER JOIN CIUDAD CIUDAD_ORIGEN ON RT.ID_CIUDAD_ORIGEN = CIUDAD_ORIGEN.ID_CIUDAD
-INNER JOIN CIUDAD CIUDAD_DESTINO ON RT.ID_CIUDAD_DESTINO = CIUDAD_DESTINO.ID_CIUDAD;
-
--- Eventos, procedimientos y disparadores
-
--- PROCEDIMIENTOS
-DELIMITER //
-CREATE PROCEDURE EliminarUsuario(
-    IN p_iduser INT
-)
-BEGIN
-    DELETE FROM USUARIOS WHERE iduser = p_iduser;
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE RegistrarUsuario(
-    IN username VARCHAR(50),
-    IN correoElectronico VARCHAR(100),
-    IN direccionu VARCHAR(255),
-    IN contrasena VARCHAR(255),
-    IN cedula_param VARCHAR(10),
-    IN numtel VARCHAR(15),
-    IN fechanac DATE
-)
-BEGIN
-    DECLARE cedula_count INT;
-  
-    SELECT COUNT(*) INTO cedula_count FROM USUARIOS WHERE cedula = cedula_param;
     
-    IF cedula_count > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'La cédula ya está registrada';
-    ELSE
-        INSERT INTO USUARIOS (username, email, direccion, passwordu, cedula, telefono, fechanac)
-        VALUES (username, correoElectronico, direccionu, contrasena, cedula_param, numtel, fechanac);
-    END IF;
-END //
-DELIMITER ;
-
-
-
-DELIMITER //
-CREATE PROCEDURE Login(
-    IN p_email VARCHAR(100),
-    IN p_contrasena VARCHAR(255),
-    OUT resultado INT
-)
-BEGIN
-    DECLARE usuarioEncontrado INT;
-    SET usuarioEncontrado = 0;
-    
-    SELECT COUNT(*) INTO usuarioEncontrado
-    FROM USUARIOS
-    WHERE email = p_email AND passwordu = p_contrasena;
-
-    IF usuarioEncontrado = 1 THEN
-        SET resultado = 1;
-    ELSE
-        SET resultado = 0;
-    END IF;
-END //
-DELIMITER ;
-
-
-DELIMITER //
-CREATE PROCEDURE AgregarCiudad(
-	IN nombre VARCHAR(255)
-)
-BEGIN
-INSERT INTO CIUDAD (NOMBRE_CIUDAD)
-VALUES (nombre);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE AgregarRuta(
-	IN nomlinea VARCHAR(255),
-    IN id1 INT,
-    IN id2 INT
-)
-BEGIN
-INSERT INTO RUTA (NOM_RUTA, ID_CIUDAD_ORIGEN, ID_CIUDAD_DESTINO)
-VALUES (nomlinea, id1, id2);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE AgregarConductor(
-	IN nombrechofer VARCHAR(255),
-    IN seriallicencia VARCHAR(100)
-)
-BEGIN
-INSERT INTO CONDUCTOR (NOMBRE_CONDUCTOR, SERIAL_LICENCIA)
-VALUES (nombrechofer, seriallicencia);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE AgregarOmnibus(
-	IN numid INT,
-    IN capacidad INT,
-    IN idchof INT
-    )
-BEGIN 
-INSERT INTO OMNIBUS (NUMERO_IDENTIFICACION, CAPACIDAD_MAXIMA, CONDUCTOR_ID)
-VALUES (numid, capacidad, idchof);
-END //
-DELIMITER ;
-SELECT * FROM CONDUCTOR;
-
-DELIMITER //
-CREATE PROCEDURE ActualizarPrecioRuta(
-    IN p_idruta INT,
-    IN p_nuevoprecio INT
-)
-BEGIN
-    UPDATE RUTA SET PRECIO = p_nuevoprecio WHERE ID_RUTA = p_idruta;
-END //
-DELIMITER ;
-
-
--- eventos 
-DELIMITER //
-
-CREATE EVENT ActualizarEstadoAsientos
-ON SCHEDULE EVERY 1 HOUR
-DO
-BEGIN
-    UPDATE ASIENTO SET ESTADO = 0 WHERE ID_RESERVA IS NULL;
-END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE EVENT GenerarReporteDiario
-ON SCHEDULE EVERY 1 DAY STARTS CURRENT_TIMESTAMP
-DO
-BEGIN
-   
-    DECLARE num_reservas, INGRESOS INT;
-    SELECT COUNT(*) INTO num_reservas FROM RESERVA WHERE DATE(FECHA_RESERVA) = CURDATE();
-	SELECT SUM(PRECIO) INTO INGRESOS FROM RESERVA WHERE DATE(FECHA_RESERVA) = CURDATE();
-   
-    INSERT INTO INFORMES_DIARIOS (FECHA, NUM_RESERVAS, TOTAL_INGRESOS)
-    VALUES (CURDATE(), num_reservas, total_ingresos);
-END;
-//
-DELIMITER ;
-
-//
-DELIMITER ;
-
-
--- triggers
-DELIMITER //
-
-CREATE TRIGGER ActualizarEstadoAsientoDespuesDeReserva
-AFTER INSERT ON ASIENTO 
-FOR EACH ROW
-BEGIN
-    UPDATE ASIENTO SET ESTADO = 1 WHERE ID_ASIENTO = NEW.ID_ASIENTO;
-END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER RegistrarEventoAuditoria
-AFTER INSERT ON RESERVA
-FOR EACH ROW
-BEGIN
-    INSERT INTO EVENTOS_AUDITORIA (EVENTO, FECHA) VALUES ('Nueva Reserva', NOW());
-END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER ValidarReservaParaCalificar
-BEFORE INSERT ON Calificaciones
-FOR EACH ROW
-BEGIN
-    DECLARE reserva_count INT;
-    SELECT COUNT(*) INTO reserva_count FROM RESERVA WHERE ID_RESERVA = NEW.ID_RESERVA AND IDCLIENTE = NEW.ID_Pasajero;
-    IF reserva_count = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'El pasajero no ha comprado un pasaje para este servicio.';
-    END IF;
-END;
-//
-DELIMITER ;
-
-
-DELIMITER //
-CREATE TRIGGER EvitarCalificacionDuplicada
-BEFORE INSERT ON Calificaciones
-FOR EACH ROW
-BEGIN
-    DECLARE calificacion_count INT;
-    SELECT COUNT(*) INTO calificacion_count FROM Calificaciones WHERE ID_RESERVA = NEW.ID_RESERVA AND ID_Pasajero = NEW.ID_Pasajero;
-    IF calificacion_count > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'El pasajero ya ha calificado este servicio.';
-    END IF;
-END;
-//
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER ActualizarPromedioCalificaciones
-AFTER INSERT ON Calificaciones
-FOR EACH ROW
-BEGIN
-    DECLARE promedio_calificaciones DECIMAL(5, 2);
-    SELECT AVG(Puntuacion) INTO promedio_calificaciones FROM Calificaciones WHERE ID_RESERVA = NEW.ID_RESERVA;
-    
-    SET @promedio_calificaciones = promedio_calificaciones;
-END;
-//
-DELIMITER ;
-
-INSERT INTO Calificaciones (ID_RESERVA, ID_Pasajero, Puntuacion, Comentario)
-VALUES
-    (1, 1, 5, 'Excelente servicio'),
-    (1, 2, 4, 'Buen servicio'),
-    (2, 1, 3, 'Buen servicio'),
-    (1, 1, 2, 'Otra calificación'),
-    (3, 1, 4, 'Calificación sin reserva'),
-    (2, 2, 5, 'Calificación duplicada');
+    SELECT * FROM CIUDAD;

@@ -2,11 +2,12 @@
 include '../libs/Conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $cedula = $_POST["cedula"];
+    $iduser = $_POST["iduser"];
+
     try {
-        $sql = "CALL EliminarUsuarioPorCedula(:cedula)";
+        $sql = "CALL EliminarUsuarioPorId(:iduser)";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':cedula', $cedula, PDO::PARAM_STR);
+        $stmt->bindParam(':iduser', $iduser, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             echo "Usuario eliminado con éxito.";

@@ -186,7 +186,6 @@ END;
 DELIMITER ;
 
 DELIMITER //
-
 CREATE PROCEDURE AgregarUsuario(
     IN p_username VARCHAR(255),
     IN p_email VARCHAR(255),
@@ -208,10 +207,49 @@ BEGIN
         SELECT 'Usuario agregado con éxito' AS mensaje;
     END IF;
 END;
-
 //
-
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE EliminarUsuarioPorId(IN p_iduser INT)
+BEGIN
+    DELETE FROM USUARIOS WHERE iduser = p_iduser;
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE ModificarUsuario(
+    IN p_iduser INT,
+    IN p_username VARCHAR(255),
+    IN p_email VARCHAR(255),
+    IN p_direccion VARCHAR(255),
+    IN p_passwordu VARCHAR(255),
+    IN p_cedula VARCHAR(10),
+    IN p_telefono VARCHAR(15),
+    IN p_rango INT,
+    IN p_fechanac DATE
+)
+BEGIN
+    UPDATE USUARIOS
+    SET
+        username = p_username,
+        email = p_email,
+        direccion = p_direccion,
+        passwordu = p_passwordu,
+        cedula = p_cedula,
+        telefono = p_telefono,
+        rango = p_rango,
+        fechanac = p_fechanac
+    WHERE
+        iduser = p_iduser;
+END;
+//
+DELIMITER ;
+
+
 
 
 
@@ -356,3 +394,5 @@ VALUES
     (38, 0, 2, 5),
     (39, 0, 2, 3),
     (40, 0, 2, 5);
+
+

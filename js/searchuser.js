@@ -4,7 +4,7 @@ $(document).ready(function () {
         if (busqueda) {
             $.ajax({
                 type: "POST",
-                url: "../src/controlador/user_search.php", // Reemplaza con la URL de tu archivo PHP
+                url: "../src/controlador/user_search.php",
                 data: { busqueda: busqueda },
                 success: function (data) {
                     $("#resultado").html(data);

@@ -16,6 +16,8 @@
     <script src="../js/searchuser.js"></script>
     <script src="../js/adduser.js"></script>
     <script src="../js/moduser.js"></script>
+    <script src="../js/addroute.js"></script>
+    <script src="../js/searchroute.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BackOffice</title>
@@ -70,7 +72,6 @@
                         </div>
                     </div>
                     <div class="column"><i class="fa-solid fa-route"></i> ABM Lineas
-                        <!-- Agregar la funcion onclick en las column, con el nombre correspondiente en JS -->
                         <div class="column" onclick="showSearchLine()"><i class="fa-solid fa-magnifying-glass"></i>
                             Buscar</div>
                         <div class="column" onclick="showAddLine()"><i class="fa-solid fa-plus"></i> Agregar</div>
@@ -127,7 +128,6 @@
     </div>
 
     <div class="popupcont" id="searchu">
-        <!-- Este es el contenido que estara dentro del popup, en class siempre dejar el popupcont, cambiar el ID que es lo que se usa en JS -->
         <div class="popup-content">
             <h2>Buscar usuario</h2>
             <input type="text" name="cedula" placeholder="Cedula usuario">
@@ -151,7 +151,7 @@
                 <input type="date" name="fechanac" placeholder="Nueva fecha de nacimiento">
                 <button type="submit">Modificar Usuario</button>
             </form>
-        
+
             <div id="mensaje"></div>
             <button onclick="closePopupMod()">Cerrar</button>
         </div>
@@ -164,7 +164,7 @@
                 <input type="number" name="iduser" placeholder="ID del usuario a eliminar">
                 <button type="submit">Eliminar Usuario</button>
             </form>
-            
+
             <div id="mensaje"></div>
             <button onclick="closePopupDel()">Cerrar</button>
         </div>
@@ -190,26 +190,33 @@
 
     <div class="popupcont" id="searchline">
         <div class="popup-content">
-            <!-- <form action="../php/searchline.php" method="post">  -->
-            <h2>Buscar Línea</h2>
-            <input type="text" name="idlinea" placeholder="ID Linea">
-            <input type="text" name="nameLinea" placeholder="Nombre de la Linea">
-            <input type="submit" value="Enviar">
-            </form>
+            <h1>Buscar Rutas</h1>
+            <label for="origen">Ciudad de Origen:</label>
+            <select id="origen">
+                <option value="">Selecciona una ciudad de origen</option>
+            </select>
+            <label for="destino">Ciudad de Destino:</label>
+            <select id="destino">
+                <option value="">Selecciona una ciudad de destino</option>
+            </select>
+            <button id="buscar">Buscar Rutas</button>
+            <div id="resultados"></div>
+
             <button onclick="closePopupSearchLine()">Cerrar</button>
         </div>
     </div>
 
     <div class="popupcont" id="addLine">
         <div class="popup-content">
-            <!-- <form action="../php/addLine" method="post"> -->
-            <h2>Añadir Línea</h2>
-            <input type="text" name="nameLinea" placeholder="Nombre Línea">
-            <input type="text" name="id" placeholder="ID Línea">
-            <input type="text" name="cityO" placeholder="Ciudad Orígen">
-            <input type="text" name="cityD" placeholder="Ciudad Destino">
-            <input type="submit" value="Agregar">
+            <h1>Crear Ruta</h1>
+            <form id="crear-ruta-form">
+                <input type="text" name="nom_ruta" placeholder="Nombre de la ruta">
+                <input type="number" name="id_ciudad_origen" placeholder="ID de la ciudad de origen">
+                <input type="number" name="id_ciudad_destino" placeholder="ID de la ciudad de destino">
+                <input type="number" name="id_omnibus" placeholder="ID del ómnibus">
+                <button type="submit">Crear Ruta</button>
             </form>
+            <div id="mensaje"></div>
             <button onclick="closePopupAddLine()">Cerrar</button>
         </div>
     </div>

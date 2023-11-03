@@ -210,47 +210,6 @@ END;
 //
 DELIMITER ;
 
-DELIMITER //
-CREATE PROCEDURE EliminarUsuarioPorId(IN p_iduser INT)
-BEGIN
-    DELETE FROM USUARIOS WHERE iduser = p_iduser;
-END;
-//
-DELIMITER ;
-
-
-DELIMITER //
-
-CREATE PROCEDURE ModificarUsuario(
-    IN p_iduser INT,
-    IN p_username VARCHAR(255),
-    IN p_email VARCHAR(255),
-    IN p_direccion VARCHAR(255),
-    IN p_passwordu VARCHAR(255),
-    IN p_cedula VARCHAR(10),
-    IN p_telefono VARCHAR(15),
-    IN p_rango INT,
-    IN p_fechanac DATE
-)
-BEGIN
-    UPDATE USUARIOS
-    SET
-        username = p_username,
-        email = p_email,
-        direccion = p_direccion,
-        passwordu = p_passwordu,
-        cedula = p_cedula,
-        telefono = p_telefono,
-        rango = p_rango,
-        fechanac = p_fechanac
-    WHERE
-        iduser = p_iduser;
-END;
-//
-DELIMITER ;
-
-
-
 
 
 INSERT INTO USUARIOS (username, email, direccion, passwordu, cedula, telefono, fechanac)
@@ -394,5 +353,84 @@ VALUES
     (38, 0, 2, 5),
     (39, 0, 2, 3),
     (40, 0, 2, 5);
+
+
+DELIMITER //
+CREATE PROCEDURE EliminarUsuarioPorId(IN p_iduser INT)
+BEGIN
+    DELETE FROM USUARIOS WHERE iduser = p_iduser;
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE ModificarUsuario(
+    IN p_iduser INT,
+    IN p_username VARCHAR(255),
+    IN p_email VARCHAR(255),
+    IN p_direccion VARCHAR(255),
+    IN p_passwordu VARCHAR(255),
+    IN p_cedula VARCHAR(10),
+    IN p_telefono VARCHAR(15),
+    IN p_rango INT,
+    IN p_fechanac DATE
+)
+BEGIN
+    UPDATE USUARIOS
+    SET
+        username = p_username,
+        email = p_email,
+        direccion = p_direccion,
+        passwordu = p_passwordu,
+        cedula = p_cedula,
+        telefono = p_telefono,
+        rango = p_rango,
+        fechanac = p_fechanac
+    WHERE
+        iduser = p_iduser;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE CrearRuta(
+    IN p_nom_ruta VARCHAR(255),
+    IN p_id_ciudad_origen INT,
+    IN p_id_ciudad_destino INT,
+    IN p_id_omnibus INT
+)
+BEGIN
+    INSERT INTO RUTA (NOM_RUTA, ID_CIUDAD_ORIGEN, ID_CIUDAD_DESTINO, IDOMNIBUS)
+    VALUES (p_nom_ruta, p_id_ciudad_origen, p_id_ciudad_destino, p_id_omnibus);
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+
+DELIMITER //
+
+DELIMITER //
+CREATE PROCEDURE BuscarRutas(IN param_idOrigen INT, IN param_idDestino INT)
+BEGIN
+    SELECT R.NOM_RUTA
+    FROM RUTA AS R
+    WHERE R.ID_CIUDAD_ORIGEN = param_idOrigen AND R.ID_CIUDAD_DESTINO = param_idDestino;
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE ObtenerCiudades()
+BEGIN
+    SELECT ID_CIUDAD, NOM_CIUDAD FROM CIUDAD;
+END;
+//
+DELIMITER ;
+
+
 
 

@@ -1,25 +1,25 @@
 
 // POPUP USUARIO
 
-    function showSearchUser() {
-        var busqueda = prompt("Ingrese la cédula o el ID del usuario que desea buscar:");
+function showSearchUser() {
+    var busqueda = prompt("Ingrese la cédula o el ID del usuario que desea buscar:");
 
-        if (busqueda !== null && busqueda.trim() !== "") {
-            $.ajax({
-                type: "POST",
-                url: "../src/controlador/user_search.php", // Reemplaza con la URL de tu archivo PHP
-                data: { busqueda: busqueda },
-                success: function (data) {
-                    $("#resultado").html(data);
-                },
-                error: function () {
-                    $("#resultado").html("Error en la solicitud AJAX.");
-                }
-            });
-        } else {
-            $("#resultado").html("Ingrese un valor de búsqueda válido.");
-        }
+    if (busqueda !== null && busqueda.trim() !== "") {
+        $.ajax({
+            type: "POST",
+            url: "../src/controlador/user_search.php", // Reemplaza con la URL de tu archivo PHP
+            data: { busqueda: busqueda },
+            success: function (data) {
+                $("#resultado").html(data);
+            },
+            error: function () {
+                $("#resultado").html("Error en la solicitud AJAX.");
+            }
+        });
+    } else {
+        $("#resultado").html("Ingrese un valor de búsqueda válido.");
     }
+}
 
 
 function closePopupSearch() { //Mismo aca, cambiar nombre de la funcion y getElementById.
@@ -50,6 +50,15 @@ function showAddUser() {
 }
 function closePopupAdd() {
     var popup = document.getElementById("addus");
+    popup.style.display = "none";
+}
+
+function showFileSettings() {
+    var popup = document.getElementById("filesetting");
+    popup.style.display = "block";
+}
+function closePopupFileSettings() {
+    var popup = document.getElementById("filesetting");
     popup.style.display = "none";
 }
 

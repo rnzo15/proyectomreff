@@ -25,6 +25,10 @@
     <script src="../js/searchstop.js"></script>
     <script src="../js/addstop.js"></script>
     <script src="../js/modstop.js"></script>
+    <script src="../js/addcity.js"></script>
+    <script src="../js/searchcity.js"></script>
+    <script src="../js/modcity.js"></script>
+    <script src="../js/pdfview.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BackOffice</title>
@@ -104,7 +108,8 @@
                         <div class="column"><i class="fa-solid fa-comment"></i> Chat</div>
                         <div class="column"><i class="fa-solid fa-bell"></i> Reportes</div>
                         <div class="column"><i class="fa-solid fa-calendar"></i> Eventos</div>
-                        <div class="column"><i class="fa-solid fa-file-export"></i> Subir archivo</div>
+                        <div class="column" onclick="showFileSettings()"><i class="fa-solid fa-file-export"></i> Subir
+                            archivo</div>
                         <div class="column"><i class="fa-solid fa-envelope"></i> Quejas</div>
                     </div>
                 </div>
@@ -133,7 +138,15 @@
             </div>
         </div>
     </div>
+    <div class="popupcont" id="filesetting">
+        <div class="popup-content">
+            <h1>Visor de PDF</h1>
+            <iframe id="visor-pdf" width="100%" height="500" frameborder="0"></iframe>
 
+            <input type="file" id="cargar-pdf" accept=".pdf">
+            <button onclick="closePopupFileSettings()">Cerrar</button>
+        </div>
+    </div>
     <div class="popupcont" id="searchu">
         <div class="popup-content">
             <h2>Buscar usuario</h2>
@@ -406,23 +419,24 @@
 
     <div class="popupcont" id="searchCiudad">
         <div class="popup-content">
-            <!-- <form action="../php/searchCiudad" method="post"> -->
-            <h2>Buscar Ciudad</h2>
-            <input type="text" name="id" placeholder="ID Ciudad">
-            <input type="submit" value="Buscar">
+            <h1>Buscar Ciudad por ID</h1>
+            <form id="buscar-ciudad-form">
+                <input type="number" name="id_ciudad" placeholder="ID de la ciudad a buscar">
+                <button type="submit">Buscar Ciudad</button>
             </form>
+            <div id="resultadocitysearch"></div>
             <button onclick="closePopupSearchCiudad()">Cerrar</button>
         </div>
     </div>
 
     <div class="popupcont" id="addCiudad">
         <div class="popup-content">
-            <!-- <form action="../php/addCiudad" method="post">-->
-            <h2>Agregar Ciudad</h2>
-            <input type="text" name="id" placeholder="ID Ciudad">
-            <input type="text" name="nom" placeholder="Nombre Ciudad">
-            <input type="submit" value="Agregar">
+            <h1>Agregar Ciudad</h1>
+            <form id="agregar-ciudad-form">
+                <input type="text" name="nombre_ciudad" placeholder="Nombre de la ciudad">
+                <button type="submit">Agregar Ciudad</button>
             </form>
+            <div id="mensajeaddcity"></div>
             <button onclick="closePopupAddCiudad()">Cerrar</button>
         </div>
     </div>
@@ -440,12 +454,14 @@
 
     <div class="popupcont" id="modCiudad">
         <div class="popup-content">
-            <!-- <form action="../php/modCiudad" method="post"> -->
-            <h2>Modificar Ciudad</h2>
-            <input type="text" name="id" placeholder="ID Ciudad">
-            <input type="text" name="nom" placeholder="Nombre Ciudad">
-            <input type="submit" value="Modificar">
+            <h1>Modificar Ciudad</h1>
+            <form id="modificar-ciudad-form">
+                <input type="number" name="id_ciudad" placeholder="ID de la ciudad a modificar">
+                <input type="text" name="nombre_ciudad" placeholder="Nuevo nombre de la ciudad">
+                <button type="submit">Modificar Ciudad</button>
             </form>
+            <div id="mensajemodcity"></div>
+
             <button onclick="closePopupModCiudad()">Cerrar</button>
         </div>
     </div>

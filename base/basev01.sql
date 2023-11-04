@@ -473,3 +473,63 @@ DELIMITER ;
 
 
 
+DELIMITER //
+CREATE PROCEDURE ModificarCiudad(
+    IN p_id_ciudad INT,
+    IN p_nombre_ciudad VARCHAR(80)
+)
+BEGIN
+    DECLARE nombre_existe INT;
+
+    -- Verificar si el nuevo nombre ya existe en otra ciudad
+    SELECT COUNT(*) INTO nombre_existe
+    FROM CIUDAD
+    WHERE NOMBRE_CIUDAD = p_nombre_ciudad AND ID_CIUDAD != p_id_ciudad;
+
+    IF nombre_existe = 0 THEN
+        -- El nuevo nombre no existe en otra ciudad, realizar la actualización
+        UPDATE CIUDAD
+        SET
+            NOMBRE_CIUDAD = p_nombre_ciudad
+        WHERE ID_CIUDAD = p_id_ciudad;
+        SELECT "Ciudad modificada con éxito." AS mensaje;
+    ELSE
+        -- El nuevo nombre ya existe en otra ciudad, no se puede actualizar
+        SELECT "El nuevo nombre de ciudad ya existe en otra ciudad." AS mensaje;
+    END IF;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE BuscarCiudadPorID(IN p_id_ciudad INT)
+BEGIN
+    SELECT * FROM CIUDAD WHERE ID_CIUDAD = p_id_ciudad;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AgregarCiudad(
+    IN p_nombre_ciudad VARCHAR(80)
+)
+BEGIN
+    DECLARE ciudad_existente INT;
+    
+    SELECT COUNT(*) INTO ciudad_existente FROM CIUDAD WHERE NOMBRE_CIUDAD = p_nombre_ciudad;
+
+    IF ciudad_existente = 0 THEN
+        INSERT INTO CIUDAD (NOMBRE_CIUDAD) VALUES (p_nombre_ciudad);
+    ELSE
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'La ciudad ya existe.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+CREATE TABLE archivos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_archivo VARCHAR(255) NOT NULL,
+    archivo LONGBLOB NOT NULL
+);

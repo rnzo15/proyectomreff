@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/styleback.css">
     <script src="../js/deluser.js"></script>
     <script src="../js/searchuser.js"></script>
+    <script src="../js/modroute.js"></script>
     <script src="../js/adduser.js"></script>
     <script src="../js/moduser.js"></script>
     <script src="../js/addroute.js"></script>
@@ -190,17 +191,13 @@
 
     <div class="popupcont" id="searchline">
         <div class="popup-content">
-            <h1>Buscar Rutas</h1>
-            <label for="origen">Ciudad de Origen:</label>
-            <select id="origen">
-                <option value="">Selecciona una ciudad de origen</option>
-            </select>
-            <label for="destino">Ciudad de Destino:</label>
-            <select id="destino">
-                <option value="">Selecciona una ciudad de destino</option>
-            </select>
-            <button id="buscar">Buscar Rutas</button>
-            <div id="resultados"></div>
+            <h1>Buscar Ruta por ID</h1>
+            <form id="buscar-ruta-form">
+                <input type="number" name="id" placeholder="ID de la Ruta">
+                <button type="submit">Buscar</button>
+            </form>
+            <div id="resultado2"></div>
+
 
             <button onclick="closePopupSearchLine()">Cerrar</button>
         </div>
@@ -234,14 +231,16 @@
 
     <div class="popupcont" id="modLine">
         <div class="popup-content">
-            <!-- <form action="../php/modLine" method="post"> -->
-            <h2>Modificar Linea</h2>
-            <input type="text" name="id" placeholder="ID Línea">
-            <input type="text" name="nameline" placeholder="Nombre Línea">
-            <input type="text" name="ciudadO" placeholder="Ciudad Origen">
-            <input type="text" name="ciudadD" placeholder="Ciudad Destino">
-            <input type="submit" value="Modificar">
+            <h1>Modificar Ruta</h1>
+            <form id="modificar-ruta-form">
+                <input type="number" name="id_ruta" placeholder="ID de la ruta a modificar">
+                <input type="text" name="nombre_ruta" placeholder="Nuevo nombre de la ruta">
+                <input type="number" name="id_ciudad_origen" placeholder="Nuevo ID de la ciudad de origen">
+                <input type="number" name="id_ciudad_destino" placeholder="Nuevo ID de la ciudad de destino">
+                <input type="number" name="id_omnibus" placeholder="Nuevo ID del ómnibus">
+                <button type="submit">Modificar Ruta</button>
             </form>
+            <div id="mensajemod"></div>
             <button onclick="closePopupModLine()">Cerrar</button>
         </div>
     </div>

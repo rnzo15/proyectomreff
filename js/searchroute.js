@@ -1,68 +1,48 @@
-$(document).ready(function () {
-    // Cargar las ciudades en las listas desplegables
-    $.ajax({
-        type: "POST",
-        url: "../src/controlador/city_get.php", // Ruta al archivo PHP que carga las ciudades
-        dataType: 'json',
-        success: function (data) {
-            const origenSelect = $("#origen");
-            const destinoSelect = $("#destino");
+document.addEventListener("DOMContentLoaded", function () {
+    const buscarRutaForm = document.getElementById("buscar-ruta-form");
+    const resultadoDiv = document.getElementById("resultado2");
 
-            origenSelect.empty();
-            destinoSelect.empty();
+    buscarRutaForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        resultadoDiv.innerHTML = "";
 
-            origenSelect.append("<option value=''>Selecciona una ciudad de origen</option>");
-            destinoSelect.append("<option value=''>Selecciona una ciudad de destino</option>");
+        const idInput = buscarRutaForm.querySelector("input[name='id']");
+        const id = idInput.value;
 
-            data.forEach(function (ciudad) {
-                origenSelect.append(new Option(ciudad.NOM_CIUDAD, ciudad.ID_CIUDAD));
-                destinoSelect.append(new Option(ciudad.NOM_CIUDAD, ciudad.ID_CIUDAD));
-            });
-        },
-        error: function () {
-            console.log("Error en la solicitud AJAX para cargar las ciudades.");
+        if (!id) {
+            resultadoDiv.innerHTML = "Por favor, ingrese un ID de ruta.";
+            return;
         }
-    });
 
-    // Manejar la búsqueda de rutas
-    $("#buscar").click(function () {
-        const idOrigen = $("#origen").val();
-        const idDestino = $("#destino").val();
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "../src/controlador/route_search.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        if (idOrigen && idDestino) {
-            // Realizar una solicitud AJAX para buscar rutas basadas en las ciudades de origen y destino
-            $.ajax({
-                type: "POST",
-                url: "../src/controlador/route_search.php", // Ruta al archivo PHP que busca rutas
-                data: {
-                    idOrigen: idOrigen,
-                    idDestino: idDestino
-                },
-                dataType: 'json',
-                success: function (data) {
-                    // Mostrar los resultados en el elemento "resultados"
-                    const resultadosDiv = $("#resultados");
-                    resultadosDiv.empty();
-
-                    if (data.error) {
-                        resultadosDiv.append(data.error); // Mostrar mensaje de error
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                try {
+                    const data = JSON.parse(xhr.responseText);
+                    if (data && !data.error) {
+                        resultadoDiv.innerHTML = "ID: " + data.ID_RUTA + "<br>" +
+                            "Nombre: " + data.NOM_RUTA + "<br>" +
+                            "Ciudad de Origen: " + data.ID_CIUDAD_ORIGEN + "<br>" +
+                            "Ciudad de Destino: " + data.ID_CIUDAD_DESTINO + "<br>" +
+                            "ID de Omnibus: " + data.ID_OMNIBUS;
                     } else {
-                        resultadosDiv.append("<h2>Rutas Disponibles</h2>");
-                        const listaRutas = $("<ul>");
-
-                        data.forEach(function (ruta) {
-                            listaRutas.append("<li>" + ruta.NOM_RUTA + "</li>");
-                        });
-
-                        resultadosDiv.append(listaRutas);
+                        resultadoDiv.innerHTML = data.error;
                     }
-                },
-                error: function () {
-                    console.log("Error en la solicitud AJAX para buscar rutas.");
+                } catch (error) {
+                    resultadoDiv.innerHTML = "Error en la respuesta del servidor: " + error;
                 }
-            });
-        } else {
-            alert("Selecciona una ciudad de origen y una ciudad de destino.");
-        }
+            } else {
+                resultadoDiv.innerHTML = "Error en la solicitud AJAX: " + xhr.statusText;
+            }
+        };
+
+        xhr.onerror = function () {
+            resultadoDiv.innerHTML = "Error en la solicitud AJAX.";
+        };
+
+        xhr.send("id=" + id);
     });
 });

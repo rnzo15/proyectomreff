@@ -5,17 +5,11 @@ include '../src/libs/Conexion.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $email = $_POST["email"];
   $password = $_POST["password"];
-  
-  // ...
 
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$database", $usernameDB, $passwordDB);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $resultado = null;
-
-  // Llamar al procedimiento almacenado utilizando parámetros con marcadores de posición
-  $sql = "CALL Login(:email, :password, @resultado)";
+  $sql = "CALL LoginAdmin(:email, :password, @resultado)";
   $stmt = $conn->prepare($sql);
   $stmt->bindParam(':email', $email, PDO::PARAM_STR);
   $stmt->bindParam(':password', $password, PDO::PARAM_STR);

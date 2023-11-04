@@ -19,6 +19,12 @@
     <script src="../js/moduser.js"></script>
     <script src="../js/addroute.js"></script>
     <script src="../js/searchroute.js"></script>
+    <script src="../js/searchbus.js"></script>
+    <script src="../js/addbus.js"></script>
+    <script src="../js/modbus.js"></script>
+    <script src="../js/searchstop.js"></script>
+    <script src="../js/addstop.js"></script>
+    <script src="../js/modstop.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BackOffice</title>
@@ -247,25 +253,26 @@
 
     <div class="popupcont" id="searchBus">
         <div class="popup-content">
-            <!-- <form action="../php/searchBus" method="post"> -->
-            <h2>Buscar Bus</h2>
-            <input type="text" name="id" placeholder="ID Bus">
-            <input type="submit" value="Buscar">
+            <h1>Buscar Ómnibus por ID</h1>
+            <form id="buscar-omnibus-form">
+                <input type="number" name="id_omnibus" placeholder="ID del Ómnibus">
+                <button type="submit">Buscar Ómnibus</button>
             </form>
+            <div id="resultadosbus"></div>
             <button onclick="closePopupSearchBus()">Cerrar</button>
         </div>
     </div>
 
     <div class="popupcont" id="addBus">
         <div class="popup-content">
-            <!-- <form action="../php/addBus" method="post"> -->
-            <h2>Agregar Bus</h2>
-            <input type="text" name="id" placeholder="Añadir ID">
-            <input type="text" name="cap" placeholder="capacidad maxima">
-            <input type="text" name="num" placeholder="Numero de Identificación">
-            <input type="text" name="conductor" placeholder="Conductor ID">
-            <input type="submit" value="Añadir">
+            <h1>Agregar Ómnibus</h1>
+            <form id="agregar-omnibus-form">
+                <input type="number" name="capacidad_maxima" placeholder="Capacidad Máxima">
+                <input type="number" name="numero_identificacion" placeholder="Número de Identificación">
+                <input type="number" name="conductor_id" placeholder="ID del Conductor">
+                <button type="submit">Agregar Ómnibus</button>
             </form>
+            <div id="mensajeaddbus"></div>
             <button onclick="closePopupAddBus()">Cerrar</button>
         </div>
     </div>
@@ -283,39 +290,42 @@
 
     <div class="popupcont" id="modBus">
         <div class="popup-content">
-            <!-- <form action="../php/modBus" method="post"> -->
-            <h2>Modificar Bus</h2>
-            <input type="text" name="id" placeholder="ID">
-            <input type="text" name="cap" placeholder="Capacidad maxima">
-            <input type="text" name="num" placeholder="Num Identificación">
-            <input type="text" name="conductor" placeholder="Conductor ID">
-            <input type="submit" value="Modificar">
+            <h1>Modificar Ómnibus</h1>
+            <form id="modificar-omnibus-form">
+                <input type="number" name="id_omnibus" placeholder="ID del ómnibus a modificar">
+                <input type="number" name="capacidad_maxima" placeholder="Nueva capacidad máxima">
+                <input type="number" name="numero_identificacion" placeholder="Nuevo número de identificación">
+                <input type="number" name="conductor_id" placeholder="Nuevo ID del conductor">
+                <button type="submit">Modificar Ómnibus</button>
             </form>
+            <div id="mensajemodbus"></div>
             <button onclick="closePopupModBus()">Cerrar</button>
         </div>
     </div>
 
     <div class="popupcont" id="searchParada">
         <div class="popup-content">
-            <!-- <form action="../php/searchParada" method="post"> -->
-            <h2>Buscar Parada</h2>
-            <input type="text" name="id" placeholder="ID Parada">
-            <input type="submit" value="Buscar">
+            <h1>Buscar Parada por ID</h1>
+            <form id="buscar-parada-form">
+                <input type="number" name="id_parada" placeholder="ID de la parada a buscar">
+                <button type="submit">Buscar Parada</button>
             </form>
+            <div id="resultado-parada"></div>
             <button onclick="closePopupSearchParada()">Cerrar</button>
         </div>
     </div>
 
     <div class="popupcont" id="addParada">
         <div class="popup-content">
-            <!-- <form action="../php/addParada" method="post"> -->
-            <h2>Agregar Parada</h2>
-            <input type="text" name="id" placeholder="ID Parada">
-            <input type="text" name="dir" placeholder="Dirección Parada">
-            <input type="text" name="idRuta0" placeholder="ID Ruta">
-            <input type="text" name="idCiudad" placeholder="ID Ciudad">
-            <input type="submit" value="Agregar">
+            <h1>Agregar Parada</h1>
+            <form id="agregar-parada-form">
+                <input type="text" name="direccion_parada" placeholder="Dirección de la parada">
+                <input type="time" name="horario" placeholder="Horario">
+                <input type="number" name="id_ruta" placeholder="ID de la ruta">
+                <input type="number" name="id_ciudad" placeholder="ID de la ciudad">
+                <button type="submit">Agregar Parada</button>
             </form>
+            <div id="mensajeaddstop"></div>
             <button onclick="closePopupAddParada()">Cerrar</button>
         </div>
     </div>
@@ -332,14 +342,16 @@
     </div>
     <div class="popupcont" id="modParada">
         <div class="popup-content">
-            <!-- <form action="../php/addParada" method="post"> -->
-            <h2>Modificar Parada</h2>
-            <input type="text" name="id" placeholder="ID Parada">
-            <input type="text" name="dir" placeholder="Dirección Parada">
-            <input type="text" name="idRuta0" placeholder="ID Ruta">
-            <input type="text" name="idCiudad" placeholder="ID Ciudad">
-            <input type="submit" value="Agregar">
+            <h1>Modificar Parada</h1>
+            <form id="modificar-parada-form">
+                <input type="number" name="id_parada" placeholder="ID de la parada a modificar">
+                <input type="text" name="direccion_parada" placeholder="Nueva dirección de la parada">
+                <input type="time" name="horario" placeholder="Nuevo horario">
+                <input type="number" name="id_ruta" placeholder="Nuevo ID de la ruta">
+                <input type="number" name="id_ciudad" placeholder="Nuevo ID de la ciudad">
+                <button type="submit">Modificar Parada</button>
             </form>
+            <div id="mensajemodstop"></div>
             <button onclick="closePopupModParada()">Cerrar</button>
         </div>
     </div>

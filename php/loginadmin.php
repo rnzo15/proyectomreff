@@ -14,11 +14,7 @@ try {
   $stmt->bindParam(':email', $email, PDO::PARAM_STR);
   $stmt->bindParam(':password', $password, PDO::PARAM_STR);
   $stmt->execute();
-  
-  // Liberar los resultados pendientes antes de realizar una nueva consulta
   $stmt->closeCursor();
-
-  // Recuperar el resultado del procedimiento almacenado
   $stmt = $conn->query("SELECT @resultado");
   $resultadoConsulta = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -31,10 +27,7 @@ try {
   echo "Error de conexión a la base de datos: " . $e->getMessage();
 }
 
-// Cerrar la conexión
 $conn = null;
-
-// ...
 
 }
 ?>

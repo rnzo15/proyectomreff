@@ -129,52 +129,6 @@ BEGIN
 END //
 DELIMITER ;
 
-
-DELIMITER //
-CREATE PROCEDURE AgregarCiudad(
-	IN nombre VARCHAR(255)
-)
-BEGIN
-INSERT INTO CIUDAD (NOMBRE_CIUDAD)
-VALUES (nombre);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE AgregarRuta(
-	IN nomlinea VARCHAR(255),
-    IN id1 INT,
-    IN id2 INT
-)
-BEGIN
-INSERT INTO RUTA (NOM_RUTA, ID_CIUDAD_ORIGEN, ID_CIUDAD_DESTINO)
-VALUES (nomlinea, id1, id2);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE AgregarConductor(
-	IN nombrechofer VARCHAR(255),
-    IN seriallicencia VARCHAR(100)
-)
-BEGIN
-INSERT INTO CONDUCTOR (NOMBRE_CONDUCTOR, SERIAL_LICENCIA)
-VALUES (nombrechofer, seriallicencia);
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE PROCEDURE AgregarOmnibus(
-	IN numid INT,
-    IN capacidad INT,
-    IN idchof INT
-    )
-BEGIN 
-INSERT INTO OMNIBUS (NUMERO_IDENTIFICACION, CAPACIDAD_MAXIMA, CONDUCTOR_ID)
-VALUES (numid, capacidad, idchof);
-END //
-DELIMITER ;
-
 DELIMITER //
 CREATE PROCEDURE BuscarUsuario(IN param_busqueda VARCHAR(255))
 BEGIN
@@ -409,28 +363,113 @@ END;
 DELIMITER ;
 
 DELIMITER //
-
-DELIMITER //
-
-DELIMITER //
-CREATE PROCEDURE BuscarRutas(IN param_idOrigen INT, IN param_idDestino INT)
+CREATE PROCEDURE BuscarRutaPorID(IN p_id INT)
 BEGIN
-    SELECT R.NOM_RUTA
-    FROM RUTA AS R
-    WHERE R.ID_CIUDAD_ORIGEN = param_idOrigen AND R.ID_CIUDAD_DESTINO = param_idDestino;
+    SELECT * FROM RUTA WHERE ID_RUTA = p_id;
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE ModificarRuta(
+    IN p_id_ruta INT,
+    IN p_nombre_ruta VARCHAR(255),
+    IN p_id_ciudad_origen INT,
+    IN p_id_ciudad_destino INT,
+    IN p_id_omnibus INT
+)
+BEGIN
+    UPDATE RUTA
+    SET
+        NOM_RUTA = p_nombre_ruta,
+        ID_CIUDAD_ORIGEN = p_id_ciudad_origen,
+        ID_CIUDAD_DESTINO = p_id_ciudad_destino,
+        IDOMNIBUS = p_id_omnibus
+    WHERE ID_RUTA = p_id_ruta;
 END;
 //
 DELIMITER ;
 
-
 DELIMITER //
-CREATE PROCEDURE ObtenerCiudades()
+CREATE PROCEDURE ObtenerOmibusPorID(IN p_id_omnibus INT)
 BEGIN
-    SELECT ID_CIUDAD, NOM_CIUDAD FROM CIUDAD;
+    SELECT * FROM OMNIBUS WHERE ID_OMNIBUS = p_id_omnibus;
 END;
 //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE AgregarOmnibus(
+    IN p_capacidad_maxima INT,
+    IN p_numero_identificacion INT,
+    IN p_conductor_id INT
+)
+BEGIN
+    INSERT INTO OMNIBUS (CAPACIDAD_MAXIMA, NUMERO_IDENTIFICACION, CONDUCTORID)
+    VALUES (p_capacidad_maxima, p_numero_identificacion, p_conductor_id);
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarOmnibus(
+    IN p_id_omnibus INT,
+    IN p_capacidad_maxima INT,
+    IN p_numero_identificacion INT,
+    IN p_conductor_id INT
+)
+BEGIN
+    UPDATE OMNIBUS
+    SET
+        CAPACIDAD_MAXIMA = p_capacidad_maxima,
+        NUMERO_IDENTIFICACION = p_numero_identificacion,
+        CONDUCTORID = p_conductor_id
+    WHERE ID_OMNIBUS = p_id_omnibus;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE BuscarParadaPorID(IN p_id_parada INT)
+BEGIN
+    SELECT * FROM PARADA
+    WHERE ID_PARADA = p_id_parada;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AgregarParada(
+    IN p_direccion_parada VARCHAR(255),
+    IN p_horario TIME,
+    IN p_id_ruta INT,
+    IN p_id_ciudad INT
+)
+BEGIN
+    INSERT INTO PARADA (DIRECCION_PARADA, HORARIO, ID_RUTA, ID_CIUDAD)
+    VALUES (p_direccion_parada, p_horario, p_id_ruta, p_id_ciudad);
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ModificarParada(
+    IN p_id_parada INT,
+    IN p_direccion_parada VARCHAR(255),
+    IN p_horario TIME,
+    IN p_id_ruta INT,
+    IN p_id_ciudad INT
+)
+BEGIN
+    UPDATE PARADA
+    SET
+        DIRECCION_PARADA = p_direccion_parada,
+        HORARIO = p_horario,
+        ID_RUTA = p_id_ruta,
+        ID_CIUDAD = p_id_ciudad
+    WHERE ID_PARADA = p_id_parada;
+END;
+//
+DELIMITER ;
 
 
 

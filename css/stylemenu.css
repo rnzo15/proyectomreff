@@ -53,6 +53,7 @@ header{
 .menu-icon,
 .account-icon {
     margin: 0 10px;
+
 }
 
 .menu-icon img,
@@ -131,5 +132,6 @@ header{
 /* Cambiar el color al pasar el mouse sobre cada li */
 .menu-items li:hover {
     background-color: var(--secondary-color);
+    color:white;
 }
 

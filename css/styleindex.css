@@ -1,6 +1,6 @@
 #container {
   position: relative;
-  margin-top: 20px;
+  margin-top: -1%;
 }
 
 #imgindex {
@@ -8,8 +8,8 @@
   left: 100px;
   top: 60px; 
   margin-bottom: 60px;
-  width: 600px; 
-  height: 780px;
+  width: 580px; 
+  height: 700px;
 
 }
 

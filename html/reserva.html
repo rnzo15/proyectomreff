@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Reservas de Asientos</title>
+    <link rel="stylesheet" type="text/css" href="../css/stylereserva.css">
+</head>
+<body>
+    <h1>Asientos Disponibles</h1>
+    <div id="asientos-container">
+        <!-- Aquí se generan los asientos dinámicamente desde JavaScript -->
+    </div>
+    <form id="reserva-form" action="../src/modelo/model.php">
+        <input type="hidden" id="reservaId" name="reservaId" value="1">
+        <input type="hidden" id="asientoId" name="asientoId" value="">
+        <button type="button" onclick="reservarAsiento()">Reservar Asiento</button>
+    </form>
+    <script src="../js/scriptres.js"></script>
+</body>
+</html>

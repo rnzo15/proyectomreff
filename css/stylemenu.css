@@ -135,3 +135,13 @@ header{
     color:white;
 }
 
+button[type="submit"] {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #276336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+

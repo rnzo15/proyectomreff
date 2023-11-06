@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,24 +9,22 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/stylemenu.css">
+    <link rel="stylesheet" href="../css/styleforms.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Mapa</title>
+    <title>Contacto</title>
 </head>
-
 <body>
     <style>
-        .wrapper {
-            margin: 100px;
+        .wrapper{
+            margin-top:5%;
         }
-
-        iframe {
-            margin-top: 50px;
-            z-index: -1;
+        p{
+            text-align: center;
         }
     </style>
     <header>
@@ -43,41 +40,36 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <ul class="menu-items" id="menuItems">
-                    <a href="../html/lineas.php">
-                        <li>Lineas</li>
-                    </a>
-                    <a href="../html/mapa.html">
-                        <li>Mapa</li>
-                    </a>
-                    <a href="../html/news.html">
-                        <li>Noticias</li>
-                    </a>
-                    <a href="../html/tarifas.html">
-                        <li>Tarifas</li>
-                    </a>
-                    <a href="../html/contact.html">
-                        <li>Contacto</li>
-                    </a>
+                    <a href="../php/lineas.php"><li>Lineas</li></a>
+                    <a href="../html/mapa.html"><li>Mapa</li></a>
+                    <a href="../html/news.html"><li>Noticias</li></a>
+                    <a href="../html/tarifas.html"><li>Tarifas</li></a>
+                    <a href="../html/contact.html"><li>Contacto</li></a>
                 </ul>
             </div>
         </nav>
     </header>
-    <div class="wrapper">
-        <div class="content">
-            <div class="container">
-                <form class="mb-4">
-                    <div class="form-group">
-                        <label for="buscarUnidad">Buscar Ómnibus</label>
-                        <input type="text" class="form-control" id="buscarUnidad"
-                            placeholder="Ingrese el ómnibus que desea buscar">
-                    </div>
-                    <button type="submit" >Buscar</button>
-                </form>
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d52367.274928353676!2d-56.195127332031234!3d-34.88248425430981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2suy!4v1690167036201!5m2!1ses-419!2suy"
-                        class="embed-responsive-item" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="content">
+                    <h2 class="text-center">Contacto</h2>
+                    <p>¿Tiene alguna inquietud? <br> Deje sus datos aqui que nuestro equipo se comunicara con usted a la brevedad.</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="nombre">Ingrese su nombre:</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje:</label>
+                            <textarea class="form-control" id="mensaje" rows="4" placeholder="Ingrese su mensaje"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -87,8 +79,6 @@
         <span class="center-text">Pagina creada por M.R.E.F.F Software</span>
         <img class="logo-right" src="../img/VERSION MINIMA 1.png" alt="Logo Derecho">
     </footer>
-    <script src="../js/script.js"></script>
-
+<script src="../js/script.js"></script>
 </body>
-
 </html>

@@ -1,1 +1,0 @@
-SELECT  iduser, email, direccion FROM usuarios;

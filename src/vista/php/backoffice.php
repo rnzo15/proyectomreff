@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_email'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,28 +21,20 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/stylemenu.css">
     <link rel="stylesheet" href="../css/styleback.css">
-    <script src="../js/deluser.js"></script>
-    <script src="../js/searchuser.js"></script>
-    <script src="../js/modroute.js"></script>
-    <script src="../js/adduser.js"></script>
-    <script src="../js/moduser.js"></script>
-    <script src="../js/addroute.js"></script>
-    <script src="../js/searchroute.js"></script>
-    <script src="../js/searchbus.js"></script>
-    <script src="../js/addbus.js"></script>
-    <script src="../js/modbus.js"></script>
-    <script src="../js/searchstop.js"></script>
-    <script src="../js/addstop.js"></script>
-    <script src="../js/modstop.js"></script>
-    <script src="../js/addcity.js"></script>
-    <script src="../js/searchcity.js"></script>
-    <script src="../js/modcity.js"></script>
-    <script src="../js/pdfview.js"></script>
+    <script src="../js/back.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BackOffice</title>
 </head>
-
+<style>
+    a{
+        color:black;
+        text-decoration: none;
+    }
+    .account-icon{
+        filter: invert(100%);
+    }
+</style>
 <body>
     <header>
         <nav class="navbar">
@@ -48,7 +49,7 @@
                     <i class="fa-solid fa-bars"></i>
                 </div>
                 <ul class="menu-items" id="menuItems">
-                    <a href="../html/lineas.php">
+                    <a href="../php/lineas.php">
                         <li>Lineas</li>
                     </a>
                     <a href="../html/mapa.html">
@@ -104,10 +105,9 @@
                         <div class="column" onclick="showModParada()"><i class="fa-solid fa-gear"></i> Modificar</div>
                     </div>
                     <div class="column"><i class="fa-solid fa-asterisk"></i> Otros
-                        <div class="column"><i class="fa-solid fa-location-dot"></i> Ver mapa</div>
-                        <div class="column"><i class="fa-solid fa-comment"></i> Chat</div>
-                        <div class="column"><i class="fa-solid fa-bell"></i> Reportes</div>
-                        <div class="column"><i class="fa-solid fa-calendar"></i> Eventos</div>
+                        <div class="column"><i class="fa-solid fa-location-dot"></i><a href="https://www.google.com/maps/"> Ver mapa</a> </div>
+                        <div class="column"><i class="fa-solid fa-bell"></i><a href="../html/Contacto.html"> Reportes</a> </div>
+                        <div class="column"><i class="fa-solid fa-calendar"></i> <a href="https://www.wincalendar.com/calendario/Uruguay"> Eventos</a></div>
                         <div class="column" onclick="showFileSettings()"><i class="fa-solid fa-file-export"></i> Subir
                             archivo</div>
                         <div class="column"><i class="fa-solid fa-envelope"></i> Quejas</div>
@@ -120,19 +120,6 @@
                         <div class="column" onclick="showAddCiudad()"><i class="fa-solid fa-plus"></i> Agregar</div>
                         <div class="column" onclick="showDelCiudad()"><i class="fa-solid fa-minus"></i> Eliminar</div>
                         <div class="column" onclick="showModCiudad()"><i class="fa-solid fa-gear"></i> Modificar</div>
-                    </div>
-                    <div class="column"><i class="fa-solid fa-dollar-sign"></i> Tarifas
-                        <div class="column" onclick="showSearchTarifa()"><i class="fa-solid fa-magnifying-glass"></i>
-                            Buscar</div>
-                        <div class="column" onclick="showAddTarifa()"><i class="fa-solid fa-plus"></i> Agregar</div>
-                        <div class="column" onclick="showDelTarifa()"><i class="fa-solid fa-minus"></i> Borrar</div>
-                        <div class="column" onclick="showModTarifa()"><i class="fa-solid fa-gear"></i> Modificar</div>
-                    </div>
-                    <div class="column"><i class="fa-solid fa-clock"></i> ABM Horarios
-                        <div class="column"><i class="fa-solid fa-magnifying-glass"></i> Buscar</div>
-                        <div class="column" onclick="showAddHorario()"><i class="fa-solid fa-plus"></i> Agregar</div>
-                        <div class="column" onclick="showDelHorario()"><i class="fa-solid fa-minus"></i> Borrar</div>
-                        <div class="column" onclick="showModHorario()"><i class="fa-solid fa-gear"></i> Modificar</div>
                     </div>
                 </div>
             </div>

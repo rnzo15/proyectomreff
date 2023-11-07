@@ -7,6 +7,42 @@
     <link rel="stylesheet" href="/src/vista/css/reservas.css">
     <title>reservas</title>
 </head>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../img/VERSION MINIMA 1.png" alt="Logo" class="logo-img">
+        </div>
+        <div class="nav-icons">
+            <div class="account-icon">
+                <a href="./src/vista/html/decision.html"><i class="fa-solid fa-user"></i></a>
+
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <ul class="menu-items" id="menuItems">
+                <a href="./html/lineas.php">
+                    <li>Lineas</li>
+                </a>
+                <a href="./html/abtus.html">
+                    <li>Sobre Nosotros</li>
+                </a>
+                <a href="./html/mapa.html">
+                    <li>Mapa</li>
+                </a>
+                <a href="./html/news.html">
+                    <li>Noticias</li>
+                </a>
+                <a href="./html/tarifas.html">
+                    <li>Tarifas</li>
+                </a>
+                <a href="./html/contact.html">
+                    <li>Contacto</li>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</header>
 <body>
     <h1>Reserva de Ómnibus</h1>
     <form id="reservaForm">
@@ -23,6 +59,14 @@
     </form>
 
     <div id="mensaje"></div>
-        <script src="..js/reservas.js"> </script>
+
+    <footer class="footer">
+        <img class="logo-left" src="../img/logo_6.png" alt="Logo Izquierdo">
+        <span class="center-text">Pagina creada por M.R.E.F.F Software</span>
+        <img class="logo-right" src="../img/VERSION MINIMA 1.png" alt="Logo Derecho">
+    </footer>
+    
+        <script src="js/reservas.js"> </script>
+        <script src="../js/script.js"></script>
     </body>
 </html>

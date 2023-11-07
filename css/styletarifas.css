@@ -1,43 +1,43 @@
+/* Estilos base, aptos para móviles */
 #container {
     display: flex;
-    justify-content: space-between;
-    padding: 50px;
-}
-
-#text {
-    width: 45%;
-}
-
-#tables {
-    width: 50%;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-th, td {
-    border: 5px solid rgba(0, 0, 0, 0);
-    padding: 8px;
+    flex-direction: column; /* En dispositivos móviles, los elementos se apilan verticalmente */
+    padding: 20px; /* Ajustamos el padding para móviles */
+  }
+  
+  #text, #tables {
+    width: 100%; /* Ocupan todo el ancho disponible en móviles */
+  }
+  
+  /* Ajustes a la tabla para que se vea bien en móviles */
+  table, th, td {
+    border: 1px solid #ddd;
     text-align: center;
-}
-
-th {
-    background-color: #FFFFFF;
-}
-
-tr:nth-child(even) {
-    background-color: #FFFFFF; /* Color verde para filas pares */
-}
-
-tr:nth-child(odd) {
-    background-color: #FFFFFF; /* Color verde para filas impares */
-}
-
-caption {
-    caption-side: top;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #FFFFFF;
-}
+  }
+  
+  /* Se aplica a partir de tablets */
+  @media (min-width: 768px) {
+    #container {
+      flex-direction: row; /* En tabletas, #text y #tables se muestran en línea */
+      padding: 50px;
+    }
+  
+    #text, #tables {
+      width: 45%; /* Cada uno toma aproximadamente la mitad del ancho */
+    }
+  
+    #text {
+      margin-right: 5%; /* Agrega un margen entre #text y #tables */
+    }
+  
+    table {
+      /* Asegura que la tabla no sea más ancha que su contenedor */
+      width: 100%;
+    }
+  }
+  
+  /* Ajustes para pantallas de escritorio grandes */
+  @media (min-width: 992px) {
+    /* Si necesitas hacer ajustes adicionales para pantallas grandes, se harían aquí */
+  }
+  

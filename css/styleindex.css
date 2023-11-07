@@ -1,18 +1,17 @@
+/* Estilos base */
 #container {
   position: relative;
   margin-top: 20px;
 }
 
 #imgindex {
-  position:absolute;
+  position: absolute;
   left: 100px;
-  top: 60px; 
+  top: 60px;
   margin-bottom: 60px;
-  width: 580px; 
-  height: 810px;
-
+  width: 580px;
+  height: 770px;
 }
-
 
 .container-btn {
   text-align: center;
@@ -20,33 +19,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height:100vh; 
-  margin-left: 40%;
-  margin-top: 2%;
+  height: 100vh;
 }
 
 .centrar-btn {
-  margin-bottom: 50px; 
+  margin-bottom: 50px;
 }
 
 .boton {
-  margin-right: 90px; 
-  margin-left: 30px;
   padding: 10px 10px;
   background-color: #276336;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 30px;
-    
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 30px;
 }
+
 .boton:hover {
   text-decoration: none;
   color: white;
 }
 
-#titulo{
+#titulo {
   font-size: 150px;
   margin-bottom: 90px;
   font-family: 'Roboto', sans-serif;
@@ -54,11 +49,86 @@
   font-weight: 700;
 }
 
-
 #contTit {
-  padding: 20px; 
+  padding: 20px;
   position: absolute;
-  top: 150px; 
-  right: 240px; 
+  top: 150px;
+  right: 240px;
 }
 
+/* Media query para monitores */
+
+@media screen and (min-width: 1281px) {
+  
+  #contTit{
+    font-size: 100px;
+    top: 15%;
+    left: 45%;
+  }
+  #titulo {
+    font-size: 100px;
+    text-align: center;
+  }
+  .centrar-btn {
+    margin-left: 600px; /* Desplaza los botones 50px a la izquierda */
+    
+  }
+  .boton-diferente {
+    margin-left: 600px;
+  }
+  .botonspace {
+    margin: 30px;
+  }
+}
+
+
+
+/* Media query para dispositivos medianos */
+@media screen and (max-width: 1280px) {
+  #imgindex {
+    display: none; /* Oculta la imagen en dispositivos medianos */
+  }
+  #contTit{
+    font-size: 100px;
+    top: 10%;
+    left: 20%;
+  }
+  #titulo {
+    font-size: 100px;
+    margin-left: 100px;
+  }
+  .botonspace {
+    margin: 30px;
+  }
+}
+
+/* Media query para dispositivos pequeños (teléfonos móviles) */
+@media screen and (max-width: 767px) {
+  #imgindex {
+    display: none; /* Oculta la imagen también en dispositivos pequeños */
+  }
+
+  #titulo {
+    font-size: 50px; /* Tamaño de fuente más pequeño para el título en dispositivos pequeños */
+    margin-bottom: 45px; /* Ajusta el margen inferior */
+    margin-left: 20px;
+  }
+
+  .container-btn {
+    height: auto; /* Ajusta la altura del contenedor para dispositivos pequeños */
+    margin-top: 300px; /* Añade un pequeño margen superior */
+  }
+
+  .boton {
+    margin: 10px; /* Ajusta los márgenes para dispositivos pequeños */
+    padding: 5px 5px; /* Ajusta el relleno */
+    font-size: 20px; /* Tamaño de fuente más pequeño para botones */
+  }
+
+  #contTit {
+    top: 150px; /* Ajusta la posición superior para el título */
+    right: 2px; /* Ajusta la posición derecha para el título */
+    left: 2px; /* Ajusta la posición izquierda para el título */
+    text-align: center; /* Centra el texto del título */
+  }
+}

@@ -78,28 +78,53 @@ header{
     background-color: var(--primary-color);
     color: #fff;
     text-align: center;
-    padding: 10px 20px;
+    padding: 5px 20px; /* Reducir el padding vertical para disminuir la altura */
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+    z-index: 10; /* Asegúrate de que el z-index sea positivo para que no quede detrás de otros elementos */
 }
 
 .logo-left,
 .logo-right {
-    /* Ajuste tamaño logos footer */
-    width: 50px;
-    height: 50px;
+    width: 40px; /* Reducir tamaño si es necesario */
+    height: 40px; /* Reducir tamaño si es necesario */
 }
-.logo-right{
+.logo-right {
     filter: invert(100%);
 }
 
 .center-text {
     font-size: 16px;
-    /* Ajuste espacio entre logos y texto footer */
-    margin: 0 30vw;
+    margin: 0 20px; /* Ajustar margen según necesidades */
 }
+
+/* Media queries para diferentes tamaños de dispositivos */
+@media (max-width: 768px) {
+    .footer {
+        padding: 5px 10px; /* Aún menor padding para dispositivos más pequeños */
+    }
+
+    .logo-left,
+    .logo-right {
+        width: 30px; /* Más pequeño para dispositivos más pequeños */
+        height: 30px; /* Más pequeño para dispositivos más pequeños */
+    }
+
+    .center-text {
+        font-size: 14px; /* Fuente más pequeña para dispositivos más pequeños */
+        margin: 0 10px; /* Menor margen para dispositivos más pequeños */
+    }
+}
+
+@media (max-width: 576px) {
+    .center-text {
+        font-size: 12px; /* Fuente más pequeña para dispositivos muy pequeños */
+        margin: 0; /* Eliminar margen si es necesario para dispositivos muy pequeños */
+    }
+}
+
 
 /* Menú hamburguesa */
 .menu-items {
@@ -110,7 +135,7 @@ header{
     top: 60px;
     right: -100%;
     background-color: var(--primary-color);
-    width: 15%;
+    width: 25%;
     transition: right 0.3s ease;
     height: 100%;
 }

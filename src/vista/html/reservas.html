@@ -1,72 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/vista/css/stylemenu.css">
-    <link rel="stylesheet" href="/src/vista/css/reservas.css">
+    <link rel="stylesheet" href="../css/stylemenu.css">
+    <link rel="stylesheet" href="../css/reservas.css">
     <title>reservas</title>
 </head>
-<header>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="../img/VERSION MINIMA 1.png" alt="Logo" class="logo-img">
-        </div>
-        <div class="nav-icons">
-            <div class="account-icon">
-                <a href="./src/vista/html/decision.html"><i class="fa-solid fa-user"></i></a>
 
-            </div>
-            <div class="menu-icon" onclick="toggleMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-            <ul class="menu-items" id="menuItems">
-                <a href="./html/lineas.php">
-                    <li>Lineas</li>
-                </a>
-                <a href="./html/abtus.html">
-                    <li>Sobre Nosotros</li>
-                </a>
-                <a href="./html/mapa.html">
-                    <li>Mapa</li>
-                </a>
-                <a href="./html/news.html">
-                    <li>Noticias</li>
-                </a>
-                <a href="./html/tarifas.html">
-                    <li>Tarifas</li>
-                </a>
-                <a href="./html/contact.html">
-                    <li>Contacto</li>
-                </a>
-            </ul>
-        </div>
-    </nav>
-</header>
 <body>
-    <h1>Reserva de Ómnibus</h1>
-    <form id="reservaForm">
-        <label for="destino">Selecciona un destino:</label>
-        <select id="destino" name="destino"></select>
-
-        <label for="omnibus">Selecciona un ómnibus:</label>
-        <select id="omnibus" name="omnibus"></select>
-
-        <label for="fecha">Fecha de reserva:</label>
-        <input type="date" id="fecha" name="fecha">
-
-        <button type="submit">Reservar</button>
-    </form>
-
-    <div id="mensaje"></div>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../../../index.html"><img src="../img/VERSION MINIMA 1.png" alt="Logo" class="logo-img"></a>
+            </div>
+            <div class="nav-icons">
+                <div class="account-icon">
+                    <a href="../html/decision.html"><i class="fa-solid fa-user"></i></a>
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <ul class="menu-items" id="menuItems">
+                    <a href="../php/lineas.php">
+                        <li>Lineas</li>
+                    </a>
+                    <a href="../html/mapa.html">
+                        <li>Mapa</li>
+                    </a>
+                    <a href="../html/news.html">
+                        <li>Noticias</li>
+                    </a>
+                    <a href="../html/tarifas.html">
+                        <li>Tarifas</li>
+                    </a>
+                    <a href="../html/contact.html">
+                        <li>Contacto</li>
+                    </a>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <h1>Reserva de Asientos</h1>
+    <div class="cine">
+        <div class="pantalla">Conductor</div>
+        <div class="fila">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <div class="fila">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <div class="fila">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+        <div class="fila">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+    </div>
+    <button id="reservar">Reservar</button>
 
     <footer class="footer">
         <img class="logo-left" src="../img/logo_6.png" alt="Logo Izquierdo">
         <span class="center-text">Pagina creada por M.R.E.F.F Software</span>
         <img class="logo-right" src="../img/VERSION MINIMA 1.png" alt="Logo Derecho">
     </footer>
-    
-        <script src="js/reservas.js"> </script>
-        <script src="../js/script.js"></script>
-    </body>
+
+    <script src="../js/reservas.js"> </script>
+    <script src="../js/script.js"></script>
+</body>
+
 </html>

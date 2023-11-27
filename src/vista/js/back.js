@@ -345,24 +345,4 @@ $(document).ready(function () {
         });
     });
 });
-$(document).ready(function () {
-    $("#buscar").click(function () {
-        var busqueda = $("#busqueda").val();
-        if (busqueda) {
-            $.ajax({
-                type: "POST",
-                url: "../../controlador/user_search.php",
-                data: { busqueda: busqueda },
-                success: function (data) {
-                    $("#resultado").html(data);
-                },
-                error: function () {
-                    $("#resultado").html("Error en la solicitud AJAX.");
-                }
-            });
-        } else {
-            $("#resultado").html("Ingrese un valor de búsqueda.");
-        }
-    });
-});
 

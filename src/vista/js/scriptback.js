@@ -7,7 +7,7 @@ function showSearchUser() {
     if (busqueda !== null && busqueda.trim() !== "") {
         $.ajax({
             type: "POST",
-            url: "../src/controlador/user_search.php", // Reemplaza con la URL de tu archivo PHP
+            url: "../../controlador/user_search.php", // Reemplaza con la URL de tu archivo PHP
             data: { busqueda: busqueda },
             success: function (data) {
                 $("#resultado").html(data);

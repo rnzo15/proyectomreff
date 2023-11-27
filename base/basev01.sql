@@ -533,3 +533,6 @@ CREATE TABLE archivos (
     nombre_archivo VARCHAR(255) NOT NULL,
     archivo LONGBLOB NOT NULL
 );
+INSERT INTO USUARIOS (username, email, direccion, passwordu, cedula, telefono, fechanac, rango)
+VALUES
+    ('ADMIN', 'admin@email.com', 'S/D', 'root', '1', '1', '2004-09-21', 3);
